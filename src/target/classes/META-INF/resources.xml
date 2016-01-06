@@ -1,0 +1,9 @@
+<resources>
+  <Resource id="jdbc/alda" type="javax.sql.DataSource">
+    JdbcDriver = com.mysql.jdbc.Driver
+    JdbcUrl = jdbc:mysql://dbserver.emi.u-bordeaux.fr/oconstan
+    UserName = oconstan
+    Password = U-bordeaux1
+    JtaManaged = true
+  </Resource>
+</resources>

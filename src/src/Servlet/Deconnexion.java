@@ -24,7 +24,7 @@ public class Deconnexion extends HttpServlet {
 	{
 		String path = request.getContextPath();
 		HttpSession session = request.getSession();
-		session.removeAttribute("sessionUser");
+		session.invalidate();
 		response.sendRedirect(path +"/PublicHome");
 	}
 

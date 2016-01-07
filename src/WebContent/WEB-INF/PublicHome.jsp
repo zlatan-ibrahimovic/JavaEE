@@ -77,8 +77,7 @@
 				</ul>
 				</th>
 				<th></th>
-				<th>SELLER</th>
-				<th></th>
+				<th>SELLER</th>				
 			</tr>
 
 			<c:forEach items="${Announces}" var="a">
@@ -93,6 +92,10 @@
 					<td>${a.postalCode}</td>
 					<td>${a.seller.email}</td>
 					<td>${a.seller.phone}</td>
+					<td><a href="<c:url value="/Chat"/>"><button type="submit" class="btn btn-default btn-xs">
+							Chat
+						</button></a>
+				</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -101,5 +104,4 @@
 
 </body>
 
-</body>
 </html>

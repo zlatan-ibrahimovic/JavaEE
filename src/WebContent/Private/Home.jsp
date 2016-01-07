@@ -32,6 +32,7 @@
 				<th></th>
 				<th>SELLER</th>
 				<th></th>
+				<th></th>
 			</tr>
 
 			<c:forEach items="${Announces}" var="a">
@@ -47,6 +48,11 @@
 					<td>${a.seller.email}</td>
 					<td>${a.seller.phone}</td>
 					<td>
+					<c:if test="${a.seller.isConnected()  }">
+					<form method="post" action="Chat"><input type="hidden" NAME="idSeller" VALUE="${a.seller.id}"> <input TYPE="submit" value="Chat"></FORM>
+					</c:if>
+					</td>
+					<td>
 					<c:if test="${!a.isObservor(sessionUser) && a.seller.id != sessionUser.id }">
 					<form method="post" action="FollowAnnounce"><input type="hidden" NAME="idAnnounce" VALUE="${a.id}"> <input TYPE="submit" value="Follow"></FORM>
 					</c:if>
@@ -60,6 +66,14 @@
 	
 		
 	</div>
+</div>
+
+<div class="container">
+	<div class="panel panel-primary">
+		<div class="panel-heading"><h1> Chat </h1></div>
+		<div class="chat"><%@ include file="../Chat/ChatUser.jsp" %></div>
+		
+</div>
 </div>
 </body>
 </html>

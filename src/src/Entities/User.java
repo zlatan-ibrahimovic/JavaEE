@@ -19,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
+import SessionListener.UsersConnected;
+
 
 @Entity
 @NamedQueries({
@@ -167,6 +169,10 @@ public void addMyFavoritesAnnounces(Announce myAnnounce) {
 public void removeMyFavoritesAnnounces(Announce myAnnounce) {
 	this.myFavoritesAnnounces.remove(myAnnounce);
 	myAnnounce.removeObservors(this);
+}
+
+public boolean isConnected(){
+	return UsersConnected.isConnected(this);
 }
 
 }

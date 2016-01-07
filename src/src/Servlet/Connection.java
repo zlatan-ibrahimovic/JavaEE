@@ -31,8 +31,6 @@ public class Connection extends HttpServlet {
 		String password = request.getParameter("password");
 		String path = request.getContextPath();
 		
-		System.out.println("Connection :"+ email +","+ password);
-		
 		User user = userDAO.find(email, password);
 		
 		if(user == null){
@@ -41,7 +39,6 @@ public class Connection extends HttpServlet {
 			this.getServletContext().getRequestDispatcher("/WEB-INF/Connection.jsp").forward(request, response);
 			return ;
 		}
-		System.out.println("Connexion e l'utilisateur:" + user.getEmail());
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("sessionUser", user);

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import DAO.IAnnounceDAO;
-import DAO.IUserDAO;
 import Entities.Announce;
 
 @WebServlet("/PublicHome")

@@ -1,6 +1,0 @@
-Servlet/Connection.class
-Servlet/Registration.class
-EntityManagerF/SingletonEntityManagerFactory.class
-Entities/User.class
-DAO/UserDAO.class
-DAO/IUserDAO.class

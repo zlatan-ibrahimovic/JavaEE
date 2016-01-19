@@ -89,7 +89,10 @@
 	}
 
 	function connectToChatserver() {
-		room = $('#chatroom option:selected').val();
+		//room = $('#chatroom option:selected').val();
+		var url = window.location.href;
+		room = url.split("?")[1].split("=")[1];
+	
 		wsocket = new WebSocket(serviceLocation + room);
 		wsocket.onmessage = onMessageReceived;
 	}
@@ -147,16 +150,7 @@
 			<h2 class="form-signin-heading">Chat sign in</h2>
 			<label for="nickname">Nickname</label> <input type="text"
 				class="input-block-level" placeholder="Nickname" id="nickname">
-			<div class="btn-group">
-				<label for="chatroom">write to:</label> <select 
-					id="chatroom">
-					
-					<c:forEach items="${Announces}" var="a">
-					<option value="${a.seller.email}">${a.title}</option>	
-					</c:forEach>
-				</select>
-			</div>
-			<div>
+				<div>
 			<button class="btn btn-large btn-primary" type="submit"
 				id="enterRoom">Sign in</button>
 			</div>

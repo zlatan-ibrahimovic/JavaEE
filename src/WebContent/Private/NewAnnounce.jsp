@@ -8,14 +8,19 @@
 	<%@ include file="includeJS.jsp" %>
 	<title>New Announce</title>
 <link type="text/css" rel="stylesheet" href="style.css" />
+
+<script type="text/javascript" src="Private/js/prototype.js"></script>
+<script type="text/javascript" src="Private/js/scriptaculous.js"></script>
+<script type="text/javascript" src="Private/js/multiupload.js"></script>
+
 </head>
-<body>
+<body onload="init();">
 
 
    <%@ include file="HeaderPrivate.jsp" %> 
 	
 <div class="container">
-	<form method="post" action="NewAnnounce">
+	<form id="form" method="post" action="NewAnnounce" enctype="multipart/form-data">
 		<fieldset id="Fieldset">
 			<legend>New Announce</legend>
 				<div>
@@ -44,6 +49,17 @@
 				<p><output>Description:</output>
 				<textarea type="text" id="description" name="description" value="" size="30" maxlength="560" placeholder="Description"></textarea>
 				</p>
+				<div id="upload">
+				
+            	<h1>Photos (Minimum 2 photo)</h1>
+            		<div>
+						<c:out value="${error}" />
+					</div>
+            		<div id="fichiers">
+              			Aucun fichier à uploader
+            		</div>
+            		<span id="input"></span>
+                	</div>
 					
 				<input type="submit" class="btn btn-primary btn-lg" value="Save" class="sansLabel" name="NewAnnounce"/>	
 	 

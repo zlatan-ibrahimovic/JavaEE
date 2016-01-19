@@ -68,6 +68,7 @@
 	</div>
 </div>
 
+
 <div class="container">
 	<div class="panel panel-primary">
 		<div class="panel-heading"><h1> Chat </h1></div>
@@ -75,6 +76,7 @@
 		
 </div>
 </div>
+</body>
 </body>
 </html>
 

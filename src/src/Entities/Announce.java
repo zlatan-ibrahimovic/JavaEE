@@ -1,6 +1,7 @@
 package Entities;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -9,7 +10,10 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,20 +29,22 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name="Announce.findAll",
                 query="SELECT a FROM Announce a"),
+    @NamedQuery(name="Announce.findForSale",
+                query="SELECT a FROM Announce a WHERE a.sold = '0'"),            
     @NamedQuery(name="Announce.find",
                 query="SELECT a FROM Announce a WHERE a.id = :id"),    
     @NamedQuery(name="Announce.remove",
                 query="DELETE FROM Announce a WHERE a.id = :id"), 
     @NamedQuery(name="Announce.findAllOBPostalCode",
-                query="SELECT a FROM Announce a ORDER BY a.postalCode"),
+                query="SELECT a FROM Announce a  WHERE a.sold = '0' ORDER BY a.postalCode"),
     @NamedQuery(name="Announce.findAllOBPriceASC",
-                query="SELECT a FROM Announce a ORDER BY a.price ASC"),
+                query="SELECT a FROM Announce a  WHERE a.sold = '0' ORDER BY a.price ASC"),
     @NamedQuery(name="Announce.findAllOBPriceDESC",
-                query="SELECT a FROM Announce a ORDER BY a.price DESC"),            
+                query="SELECT a FROM Announce a  WHERE a.sold = '0' ORDER BY a.price DESC"),            
     @NamedQuery(name="Announce.findAllOBAreaASC",
-                query="SELECT a FROM Announce a ORDER BY a.area ASC"), 
+                query="SELECT a FROM Announce a  WHERE a.sold = '0' ORDER BY a.area ASC"), 
     @NamedQuery(name="Announce.findAllOBAreaDESC",
-                query="SELECT a FROM Announce a ORDER BY a.area DESC"),
+                query="SELECT a FROM Announce a  WHERE a.sold = '0' ORDER BY a.area DESC"),
 }) 
 @Table(name="ALDA_announce")
 public class Announce {
@@ -51,7 +57,7 @@ public class Announce {
 	private String title;
 
 	@Basic
-	@Column(length = 560, nullable=false)
+	@Column(length = 560, nullable=true)
 	private String description;
 
 	@Basic	
@@ -77,9 +83,19 @@ public class Announce {
 	@Column(length = 5, nullable=false)
 	private String postalCode;
 	
-	//@ManyToMany(mappedBy="myFavoritesAnnounces",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@ManyToMany(mappedBy="myFavoritesAnnounces",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private List<User> observors = new ArrayList<User>();
+	
+
+	@ElementCollection(fetch=FetchType.EAGER)
+	private List<String> photo;
+	
+	
+	
+
+	@Basic
+	@Column(nullable=false)
+	private boolean sold;
 	
 	public Announce(){
 		title = "";
@@ -90,7 +106,21 @@ public class Announce {
 		seller = null;
 		address = "";
 		observors = new ArrayList<User>();
+		photo = new ArrayList<String>();
+		sold = false;
 		
+	}
+	
+	public Announce(Announce a){
+		this.title=a.getTitle();
+		this.address=a.getAddress();
+		this.description=a.getDescription();
+		this.date=a.getDate();
+		this.area=a.getArea();
+		this.seller=a.getSeller();
+		this.observors=	a.getObservors();
+		//this.photo=a.getPhoto();
+		this.sold=a.sold;
 	}
 	
 	public Long getId() {
@@ -169,10 +199,19 @@ public class Announce {
 	}
 
 	public void addObservors(User observer) {
+		for(User u : observors){
+			if(u.getId().equals(observer.getId())){
+				return ;
+			}
+		}
 		observors.add(observer);
 	}
 	public void removeObservors(User observer) {
-		observors.remove(observer);
+		for(User u : observors){
+			if(u.getId().equals(observer.getId())){
+				observors.remove(u);
+			}
+		}
 	}
 	public boolean isObservor(User user){
 		for(User u : observors){
@@ -182,5 +221,42 @@ public class Announce {
 		}
 		return false;
 	}
+	public void notifyAllObservor(){
+		System.out.println("Notify--------------------------------------------------------------");
+		for(User u : observors){
+			if(u.isConnected()){
+				u.update(this);
+			}
+		}
+	}
+	public void addPhoto(String img){
+		this.photo.add(img);
+	}
 	
+	public void removePhoto(String img){
+		this.photo.remove(img);
+	}
+	public void removeAllPhoto(){
+		this.photo.removeAll(this.photo);
+	}
+	public List<String> getPhoto(){
+		return this.photo;
+	}
+	
+	public void setPhoto(List<String> photo){
+		this.photo=photo;
+	}
+	
+	public boolean isSold(){
+		return sold;
+	}
+	
+	public void setSold(boolean s){
+		if(sold != s){
+			this.sold = s;
+			notifyAllObservor();
+		}
+		this.sold = s;
+		
+	}
 }

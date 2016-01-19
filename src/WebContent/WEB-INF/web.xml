@@ -5,7 +5,7 @@
     <session-config>
     </session-config>
     <welcome-file-list>
-        <welcome-file>PublicHome</welcome-file>
+        <welcome-file>Home</welcome-file>
     </welcome-file-list>
   	 
  

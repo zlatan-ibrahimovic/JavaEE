@@ -39,7 +39,7 @@ public class Connection extends HttpServlet {
 			this.getServletContext().getRequestDispatcher("/WEB-INF/Connection.jsp").forward(request, response);
 			return ;
 		}
-		
+		user.setAlert("");
 		HttpSession session = request.getSession();
 		session.setAttribute("sessionUser", user);
 		request.setAttribute( "user", user );

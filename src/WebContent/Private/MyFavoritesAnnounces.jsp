@@ -33,6 +33,9 @@
 				<th>AREA</th>
 				<th>ADDRESS</th>
 				<th></th>
+				<th>PHOTO</th>
+				<th>SELLER</th>
+				<th></th>
 			</tr>
 
 			<c:forEach items="${MyFavoritesAnnounces}" var="a">
@@ -45,6 +48,13 @@
 					<td>${a.area}</td>
 					<td>${a.address}</td>
 					<td>${a.postalCode}</td>
+					<td>
+						<c:forEach items="${a.photo}" var="p">
+						<img alt="" height="50px" width="50px" src="<c:url value="${p}"/>">
+						</c:forEach>
+					</td>
+					<td>${a.seller.email}</td>
+					<td>${a.seller.phone}</td>
 				</tr>
 			</c:forEach>
 		</table>

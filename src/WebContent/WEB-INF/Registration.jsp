@@ -13,7 +13,7 @@
    <%@ include file="HeaderPublic.jsp" %> 
    
    <div class="container">
-		 <div class="jumbotron">
+		 <header class="jumbotron">
 		 <h2>Registration</h2>	
 		<form method="post" action="Registration">
 			<fieldset id="Fieldset">
@@ -42,7 +42,7 @@
 				 
 			</fieldset>
 		</form>
-	</div>
+	</header>
 	</div>
 	
 	

@@ -8,10 +8,14 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<%@ include file="includeJS.jsp" %> 
 	
+<script type="text/javascript" src="Private/js/prototype.js"></script>
+<script type="text/javascript" src="Private/js/scriptaculous.js"></script>
+<script type="text/javascript" src="Private/js/multiupload.js"></script>
+	
 	<title>My Space</title>
 	<link type="text/css" rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body onload="init();">
 
 <%@ include file="HeaderPrivate.jsp" %> 	
    
@@ -45,8 +49,36 @@
 				<p><output>Description:</output>
 				<textarea type="text" id="description" name="description" value="${Announce.description}" size="30" maxlength="560" placeholder="Description">${Announce.description}</textarea>
 				</p>
+				<p><output>Stat:</output>
+				<c:if test="${Announce.sold}">
+					<SELECT id="sold" name="sold">
+						<OPTION>SOLD</OPTION>
+						<OPTION>FOR SALE</OPTION>
+					</SELECT>
+				</c:if>
+				<c:if test="${!Announce.sold}">
+					<SELECT id="sold" name="sold">
+						<OPTION>FOR SALE</OPTION>
+						<OPTION>SOLD</OPTION>
+				   	</SELECT>
+				</c:if>
+				</p>
+				<h1>Photos (Minimum 2 photo)</h1>
+            		<div>
+						<c:out value="${error}" />
+					</div>
+            		<div id="fichiers">
+              			Changer vos Photos
+            		</div>
+            		<span id="input"></span>
+                	</div>
+	
+	
 				<input type="hidden" NAME="idAnnounce" VALUE="${Announce.id}">	
 				<input type="submit" class="btn btn-primary btn-lg" value="Save" class="sansLabel" name="EditAnnounce"/>	
+	 
+	 
+	 
 	 
 			</fieldset>
 		</form>

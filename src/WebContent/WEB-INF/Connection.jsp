@@ -6,7 +6,6 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Connection</title>
-	<link type="text/css" rel="stylesheet" href="style.css" />
 	<%@ include file="includeJS.jsp" %>
 </head>
 <body>
@@ -14,7 +13,9 @@
  <%@ include file="HeaderPublic.jsp" %> 
  
 	<div class="container">
-		 <div class="jumbotron">
+	
+	
+		 <header class="jumbotron">
 		 <h2>Connection</h2>	
 		<form method="post" action="Connection">
 			<fieldset id="Field">
@@ -46,18 +47,13 @@
 				  	   required="" /> 
 				<a href="PasswordLost">Password lost ?</a></p>
 				<br/>
-				<!--
-				<output> </output>
-				<input type="checkbox"/>
-                <label>Se souvenir de moi</label>
-                <br />
-                 -->
+				
 				<p><input type="submit" class="btn btn-primary btn-lg" value="Connection" class="sansLabel" /></p>
 				<br/>
 			</fieldset>
 			<br>
 		</form>
-	</div>
+	</header>
 	</div>
 </body>
 </html>

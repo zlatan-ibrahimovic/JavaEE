@@ -26,7 +26,7 @@ public class PublicHome extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("Announces", announceDAO.findAllAnnounce());
+		request.setAttribute("Announces", announceDAO.findForSale());
 		this.getServletContext().getRequestDispatcher("/WEB-INF/PublicHome.jsp").forward(request, response);
 	
 	}

@@ -11,6 +11,7 @@ public interface IAnnounceDAO {
 	
 	void create(Announce announce);
 	List<Announce> findAllAnnounce();
+	List<Announce> findForSale();
 	Announce find(int id);
 	void remove(Announce annonce);
 	

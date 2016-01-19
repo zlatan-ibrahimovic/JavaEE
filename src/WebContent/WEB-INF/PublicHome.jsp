@@ -11,7 +11,12 @@
 </head>
 <body>
 
+<c:if test="${sessionUser==null}">
 <%@ include file="HeaderPublic.jsp" %> 
+</c:if>
+<c:if test="${sessionUser!=null}">
+<%@ include file="../Private/HeaderPrivate.jsp" %> 
+</c:if>
 
 <div class="container">
 	<div class="panel panel-primary">
@@ -77,7 +82,10 @@
 				</ul>
 				</th>
 				<th></th>
-				<th>SELLER</th>				
+				<th>PHOTO</th>
+				<th>SELLER</th>
+				<th></th>
+				<th></th>
 			</tr>
 
 			<c:forEach items="${Announces}" var="a">
@@ -90,12 +98,36 @@
 					<td>${a.area}</td>
 					<td>${a.address}</td>
 					<td>${a.postalCode}</td>
+					<td>
+						<c:forEach items="${a.photo}" var="p">
+						<img alt="" height="50px" width="50px" src="<c:url value="/ImagesALDA/${p}"/>">
+						</c:forEach>
+					
+					</td>
 					<td>${a.seller.email}</td>
 					<td>${a.seller.phone}</td>
-					<td><a href="<c:url value="/Chat"/>"><button type="submit" class="btn btn-default btn-xs">
+					<td><a href="<c:url value="/Chat?id=${a.seller.email}"/>"><button type="submit" class="btn btn-default btn-xs">
 							Chat
 						</button></a>
 				</td>
+					<td>
+					
+					<c:if test="${a.seller.isConnected() &&  sessionUser.id ==null}">
+					<form method="post" action="Chat"><input type="hidden" NAME="idSeller" VALUE="${a.seller.id}"> <input TYPE="submit" value="Chat"></FORM>
+					</c:if>
+					
+					<c:if test="${sessionUser!=null}">
+						<c:if test="${a.seller.isConnected() && a.seller.id != sessionUser.id}">
+							<form method="post" action="Chat"><input type="hidden" NAME="idSeller" VALUE="${a.seller.id}"> <input TYPE="submit" value="Chat"></FORM>
+						</c:if>
+						<c:if test="${!a.isObservor(sessionUser) && a.seller.id != sessionUser.id }">
+							<form method="post" action="FollowAnnounce"><input type="hidden" NAME="idAnnounce" VALUE="${a.id}"> <input TYPE="submit" value="Follow"></FORM>
+						</c:if>
+						<c:if test="${a.isObservor(sessionUser)}">
+							<form method="post" action="UnFollowAnnounce"><input type="hidden" NAME="idAnnounce" VALUE="${a.id}"> <input TYPE="submit" value="UnFollow"></FORM>
+						</c:if>
+					</c:if>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -104,4 +136,5 @@
 
 </body>
 
+</body>
 </html>

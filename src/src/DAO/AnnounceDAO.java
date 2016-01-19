@@ -104,7 +104,17 @@ public class AnnounceDAO implements IAnnounceDAO{
 		}catch(Exception e){}
 		return announces;
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Announce> findForSale() {
+		List<Announce> announces = null;
+		try{
+			announces = em.createNamedQuery("Announce.findForSale").getResultList();
+		}catch(Exception e){}
+		return announces;
+	}
+	
 	@Override
 	public void detach(Announce A) {
 		em.detach(A);	

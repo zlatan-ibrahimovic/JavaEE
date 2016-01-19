@@ -34,6 +34,7 @@
 				<th>AREA</th>
 				<th>ADDRESS</th>
 				<th></th>
+				<th>PHOTO</th>
 				<th>ACTION</th>
 			</tr>
 
@@ -47,6 +48,11 @@
 					<td>${a.area}</td>
 					<td>${a.address}</td>
 					<td>${a.postalCode}</td>
+					<td>
+						<c:forEach items="${a.photo}" var="p">
+						<img alt="" height="50px" width="50px" src="<c:url value="${p}"/>">
+						</c:forEach>
+					</td>
 					<td>
 					<form method="get" action="EditAnnounce"><input type="hidden" NAME="idAnnounce" VALUE="${a.id}"> <input TYPE="submit" value="Edit"></FORM>
 					<form method="post" action="RemoveAnnounce"><input type="hidden" NAME="idAnnounce" VALUE="${a.id}"> <input TYPE="submit" value="Delete"></FORM>

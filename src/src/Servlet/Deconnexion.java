@@ -25,7 +25,7 @@ public class Deconnexion extends HttpServlet {
 		String path = request.getContextPath();
 		HttpSession session = request.getSession();
 		session.invalidate();
-		response.sendRedirect(path +"/PublicHome");
+		response.sendRedirect(path +"/Home");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 

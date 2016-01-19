@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebFilter({"/EditAnnnounce", "/FollowAnnounce","/MyAnnounces","/MyFavoritesAnnounces","/MySpace",
-		"/NewAnnounce","/RemoveAnnounce","/UnFollowAnnounce","/Home"})
+		"/NewAnnounce","/RemoveAnnounce","/UnFollowAnnounce"})
 public class RestrictionAcess implements Filter {
 
     public void init( FilterConfig config ) throws ServletException {
@@ -29,7 +29,7 @@ public class RestrictionAcess implements Filter {
         HttpSession session = request.getSession();
 
         if ( session.getAttribute("sessionUser" ) == null ) {
-            response.sendRedirect(request.getContextPath() + "/PublicHome");
+            response.sendRedirect(request.getContextPath() + "/Home");
         } else {
             chain.doFilter( request, response );
         }
